@@ -13,7 +13,7 @@ import Area
 drawCanvas :: GameState -> Canvas
 -- PURPOSE
 -- draws the canvas
-drawCanvas (areas, time, player) = drawPlayerToCanvas player $ drawAreasCanvas areas time
+drawCanvas (areas, time, player) = drawPlayerToCanvas player $ drawNumber (reverse (digs time)) 0 $ drawAreasCanvas areas time
 
 increaseTime :: GameState -> GameState
 -- PURPOSE
