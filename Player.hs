@@ -18,7 +18,7 @@ playerEvents (Event mode _:_) state@(_,_,player) | mode == "KEYBOARD" && isPlaye
 playerEvents _ (_,_,player)                      = player
 
 jumpPlayer :: Player -> Player
-jumpPlayer (pos, a) = (pos, 4)
+jumpPlayer (pos, a) = (pos, 5)
 
 playerTick :: GameState -> Player
 playerTick state@(_,_,p@((x,y), 0))   | isPlayerOnFloor state = p
@@ -30,3 +30,8 @@ isPlayerOnFloor :: GameState -> Bool
 -- tests if the player is currendly on the floor of the level or on top of an area
 isPlayerOnFloor (_, _, ((_,11),_)) = True
 isPlayerOnFloor (a,t,((x,y), _))  = inAreasTime a t (x,y+1)
+
+isPlayerInAreas :: GameState -> Bool
+-- PURPOSE
+-- tests if the player is currendly in one of the areas
+isPlayerInAreas (a,t,((x,y), _))  = inAreasTime a t (x,y)

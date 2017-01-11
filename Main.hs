@@ -10,6 +10,9 @@ import LevelGen
 import Player
 import Area
 
+initGameState :: GameState
+initGameState = (genVisAreas 0, 0, ((0, 2), 0))
+
 drawCanvas :: GameState -> Canvas
 -- PURPOSE
 -- draws the canvas
@@ -27,10 +30,10 @@ toFrame :: [Event String] -> GameState -> (ListFrame, GameState)
 toFrame events (a, t, p) = (ListFrame (drawCanvas gameState), gameState)
   where
     time      = t+1
-    areas     = genVisAreas (time)
+    areas     = genVisAreas time
     player    = playerTick (areas, time, p)
-    gameState = eventHandler (areas, time, player) events
-
+    gameState | not (isPlayerInAreas (areas, time, p)) = eventHandler (areas, time, player) events
+              | otherwise                              = initGameState
 main :: IO ()
 --main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "127.0.0.1") 1337 dim (Just 33000) False []) toFrame (level, 0)
-main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "134.28.70.172") 1337 dim (Just 33000) False []) toFrame (genVisAreas 0, 0, ((0, 2), 0))
+main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "134.28.70.172") 1337 dim (Just 33000) True []) toFrame initGameState

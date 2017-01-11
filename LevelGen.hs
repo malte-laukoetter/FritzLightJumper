@@ -20,7 +20,8 @@ genVisAreas time = bottom ++ [((xPos x, yPos x - size), (xPos x + size, yPos x))
         cX      = floor $ utiDiv aX 10
         maxGap  = 2
         size    = 2
-        gap x'  = (x' `mod` ((x' `mod` maxGap)+1))
+        gap x'  | x' /= 0   = (x' `mod` ((x' `mod` maxGap)+1))
+                | otherwise = 75 -- distance to first block
         xPos x' = x'*10 + (gap x') + 5
         yPos x' | ((sin (utiDiv (2*x') 2.34))-0.5) > 0.5 = 10-size
                 | ((sin (utiDiv (2*x') 2.34))-0.5) > 0   = 12-size
