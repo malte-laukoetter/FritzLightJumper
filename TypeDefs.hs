@@ -10,5 +10,5 @@ type Pos = (Int, Int)
 type Area = (Pos, Pos)
 type Canvas = [[Pixel]]
 
-type Player = Pos
+type Player = (Pos, Int)
 type GameState = ([Area], Time, Player)

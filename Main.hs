@@ -15,17 +15,22 @@ drawCanvas :: GameState -> Canvas
 -- draws the canvas
 drawCanvas (areas, time, player) = drawPlayerToCanvas player $ drawNumber (reverse (digs time)) 0 $ drawAreasCanvas areas time
 
+eventHandler :: GameState -> [Event String] -> GameState
+eventHandler state@(areas, time, player) events = (areas, time, playerEvents events state)
+
 increaseTime :: GameState -> GameState
 -- PURPOSE
 -- increases the current time of the gamestate by 1
-increaseTime (a,t,b) = (a, t + 1, b)
+increaseTime (a,t,p) = (a, t + 1, p)
 
 toFrame :: [Event String] -> GameState -> (ListFrame, GameState)
-toFrame _ (a, b, p) = (ListFrame (drawCanvas gameState), gameState)
+toFrame events (a, t, p) = (ListFrame (drawCanvas gameState), gameState)
   where
-    vA        = genVisAreas (b+1)
-    gameState = (vA, b+1, p)
+    time      = t+1
+    areas     = genVisAreas (time)
+    player    = playerTick (areas, time, p)
+    gameState = eventHandler (areas, time, player) events
 
 main :: IO ()
 --main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "127.0.0.1") 1337 dim (Just 33000) False []) toFrame (level, 0)
-main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "134.28.70.172") 1337 dim (Just 33000) False []) toFrame (genVisAreas 0, 0, (0, 8))
+main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "134.28.70.172") 1337 dim (Just 33000) False []) toFrame (genVisAreas 0, 0, ((0, 2), 0))

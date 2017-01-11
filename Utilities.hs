@@ -20,6 +20,11 @@ replaceCanvasPos :: Pos -> Canvas -> Pixel -> Canvas
 -- Replaces the position of the canvas with the given pixel
 replaceCanvasPos (x, y) canvas pixel =  replaceNth y (replaceNth x pixel (canvas!!y)) canvas
 
+getCanvasPos :: Pos -> Canvas -> Pixel
+-- PURPOSE
+-- Gets the value of the position of the canvas
+getCanvasPos (x, y) canvas = canvas!!y!!x
+
 -- CONTRACT
 digs :: Int -> [Int]
 
@@ -28,7 +33,7 @@ digs :: Int -> [Int]
 
 -- DEFINITION
 digs 0 = []
-digs x = x `mod` 10 : digs (floor $ utiDiv x 10) 
+digs x = x `mod` 10 : digs (floor $ utiDiv x 10)
 
 -- CONTRACT
 drawNumber :: [Int] -> Int -> Canvas -> Canvas
