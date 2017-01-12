@@ -34,7 +34,7 @@ toFrame events (a, t, p) = (ListFrame (drawCanvas gameState), gameState)
     areas     = genVisAreas time
     player    = playerTick (areas, time, p)
     gameState | not (isPlayerInAreas (areas, time, p)) = eventHandler (areas, time, player) events
-              | otherwise                              = initGameState
+              | otherwise                              = initGameState -- Game over | You gotta work with the time variable and states to prevent other events from being triggered
 main :: IO ()
 main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "127.0.0.1") 1337 dim (Just 33000) True []) toFrame initGameState
 --main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "134.28.70.172") 1337 dim (Just 33000) True []) toFrame initGameState
