@@ -1,0 +1,86 @@
+\documentclass[a4paper, 10pt]{article}
+
+\usepackage{graphicx}
+\usepackage{ngerman}
+\usepackage{setspace}
+\usepackage{lmodern} % load vector font
+\usepackage[T1]{fontenc} % font encoding
+\usepackage[utf8]{inputenc} % input encoding
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper,left=21mm,right=21mm, top=2.4cm, bottom=2cm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\usepackage{titlesec}
+
+\titleformat*{\section}{\large\bfseries}
+\setlength{\headheight}{42pt}
+\lhead{Functional Programming\\Wintersemester 16/17}
+\chead{Benita Koch\\Malte Laukötter\\Tom Dymel\\Darius Kunze}
+\rhead{benita.koch@tuhh.de\\jan.laukoetter@tuhh.de\\tom.dymel@tuhh.de\\darius.kunze@tuhh.de}
+\renewcommand{\headrulewidth}{0.1pt}
+
+\begin{document}
+\begin{center}
+
+
+{\Large\bf FritzLight-Project}\bigskip
+
+{\large Projekt: TomTom}\medskip
+
+{\normalsize 16.01.2017}\medskip
+\end{center} 
+
+\paragraph {\Large\bf  Specifications} 
+\section{Concept}
+The player has to show his dexterity by mastering a pseudo random generated parcour. TomTom is a sidescroller, so all the player has to do, is to jump.
+
+\section{Game Menu}
+\begin{itemize}
+\item Show the name label in the center
+\item Having a flashy and cool animation in the background
+\end{itemize}
+
+\section{Game Over}
+\begin{itemize}
+\item Showing the archieved score and whether the player busted the current highscore
+\item Saves and loads the current highscore
+\end{itemize}
+
+\section{Parcour Generation}
+\begin{itemize}
+\item A determined psuedo random parcour generation
+\item Increasing difficulty over time
+\end{itemize}
+ 
+\section{Player}
+\begin{itemize}
+\item Projection onto the canvas
+\item Handling keyboard events to jump
+\end{itemize}
+
+\section{Basic Physics}
+\begin{itemize}
+\item Jumping and falling
+\item Collision with area objects (Firing game over event on hit)
+\end{itemize}
+
+\section{Convention}
+\begin{itemize}
+\item Using contracts and describing the purpose
+\item Usual Haskell naming conventions
+\item Using monads
+\item Having a somewhat performent product at the end
+\end{itemize}
+
+\section{Drawing}
+\begin{itemize}
+\item Text
+\item Numbers
+\item Area objects
+\end{itemize}
+\bigskip
+
+\end{document}
