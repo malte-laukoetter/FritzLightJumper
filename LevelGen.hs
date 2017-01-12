@@ -12,9 +12,13 @@ level = [
   ((40, 9), (43,12)),
   ((50, 9), (53,12))]
 
--- We will probably build a whole new module out of this
--- 3 Elements visible at a time?
+-- CONTRACT
 genVisAreas :: Time -> [Area]
+
+-- PURPOSE
+-- Generates a pseudo random area list where the player has to jump over
+
+-- DEFINITION
 genVisAreas time = [((xPos x, yPos x - size), (xPos x + size, yPos x)) | x <- [cX-2..cX+(5*maxBlo)]] ++ [bott x | x <- [cX-2..cX+(5*maxBlo)]]
   where aX      | time >= 30 = getScrollAlpha $ time - 30
                 | otherwise  = 0

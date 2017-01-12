@@ -2,27 +2,51 @@ module Utilities where
 import Network.MateLight.Simple
 import TypeDefs
 
+-- CONTRACT
 utiDiv :: Int -> Float -> Float
+
+-- PURPOSE
+-- Divides an Integer by a float value and returns a float
+
+-- DEFINITION
 utiDiv a b = (fromIntegral a) / b
 
+-- CONTRACT
 getScrollAlpha :: Time -> Int
+
+-- PURPOSE
+-- Returns the scrolling offset depending on the time
+
+-- DEFINITION
 getScrollAlpha time = floor $ utiDiv time 2
 
+-- CONTRACT
 replaceNth :: Int -> a -> [a] -> [a]
+
 -- PURPOSE
 -- replaces the nth element of a list with the given value
+
+-- DEFINITION
 replaceNth n val (x:xs)
      | n == 0    = val:xs
      | otherwise = x:replaceNth (n-1) val xs
 
+-- CONTRACT
 replaceCanvasPos :: Pos -> Canvas -> Pixel -> Canvas
+
 -- PURPOSE
 -- Replaces the position of the canvas with the given pixel
+
+-- DEFINITION
 replaceCanvasPos (x, y) canvas pixel =  replaceNth y (replaceNth x pixel (canvas!!y)) canvas
 
+-- CONTRACT
 getCanvasPos :: Pos -> Canvas -> Pixel
+
 -- PURPOSE
 -- Gets the value of the position of the canvas
+
+-- DEFINITION
 getCanvasPos (x, y) canvas = canvas!!y!!x
 
 -- CONTRACT

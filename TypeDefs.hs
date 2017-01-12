@@ -1,6 +1,8 @@
 module TypeDefs where
 import Network.MateLight.Simple
 
+-- Defining all necessary variables and types
+
 dim :: (Int, Int)
 dim = (30, 12)
 
