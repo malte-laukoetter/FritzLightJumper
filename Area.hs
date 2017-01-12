@@ -10,7 +10,7 @@ inAreas :: [Area] -> Pos -> Bool
 inAreas xs p = filter ((flip inArea) p) xs /= []
 
 drawAreasCanvas :: [Area] -> Time -> Canvas
-drawAreasCanvas areas time = [[if inAreasTime areas time (x, y) then Pixel 255 255 0 else Pixel 0 0 0 | x <- [0..(fst dim)-1]] | y <- [0..(snd dim)-1]]
+drawAreasCanvas areas time = [[if inAreasTime areas time (x, y) then Pixel 100 100 100 else Pixel 0 0 0 | x <- [0..(fst dim)-1]] | y <- [0..(snd dim)-1]]
 
 inAreasTime :: [Area] -> Time -> Pos -> Bool
 inAreasTime areas time (x,y) = inAreas areas (x+aX, y)

@@ -7,7 +7,7 @@ import Area
 drawPlayerToCanvas :: Player -> Canvas -> Canvas
 -- PURPOSE
 -- draws the player to the canvas
-drawPlayerToCanvas (pos, _) canvas = replaceCanvasPos pos canvas (Pixel 0 0 255)
+drawPlayerToCanvas (pos, _) canvas = replaceCanvasPos pos canvas (Pixel 255 0 0)
 
 playerEvents :: [Event String] -> GameState -> Player
 -- PURPOSE
