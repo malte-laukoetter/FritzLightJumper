@@ -14,4 +14,11 @@ drawAreasCanvas areas time = [[if inAreasTime areas time (x, y) then Pixel 255 2
 
 inAreasTime :: [Area] -> Time -> Pos -> Bool
 inAreasTime areas time (x,y) = inAreas areas (x+aX, y)
-  where aX = getScrollAlpha time;
+  where aX = getScrollAlpha time
+
+genEmpty :: Canvas
+genEmpty = [[Pixel 0 0 0 | _ <- [0..29]] | _ <- [0..11]]
+
+drawCountDown :: Time -> Canvas
+drawCountDown time = drawNumber [nTime] 0 (13,3) genEmpty
+  where nTime = -((floor $ utiDiv time 10) + 1)

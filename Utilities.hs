@@ -36,7 +36,7 @@ digs 0 = []
 digs x = x `mod` 10 : digs (floor $ utiDiv x 10)
 
 -- CONTRACT
-drawNumber :: [Int] -> Int -> Canvas -> Canvas
+drawNumber :: [Int] -> Int -> Pos -> Canvas -> Canvas
 
 -- PURPOSE
 -- Draws the time onto the canvas
@@ -56,10 +56,10 @@ numTemplate = [
     [[False,True,False],[True,False,True],[False,True,False],[True,False,True],[False,True,False]], -- 8
     [[False,True,False],[True,False,True],[False,True,True],[False,False,True],[True,True,True]]] -- 9
 
-drawNumber []     index can = can
-drawNumber (x:xs) index can = drawNumber xs (index+1) (helper 5 3 can)
+drawNumber [] _ _ can                = can
+drawNumber (x:xs) index (pX, pY) can = drawNumber xs (index+1) (pX, pY) (helper 5 3 can)
      where getPixel r c   | ((numTemplate !! x) !! (r-1)) !! (c-1) = Pixel 255 255 255
                           | otherwise                              = Pixel 0 0 0
            helper 0 _ can = can
-           helper r c can | c>0      = helper r (c-1) (replaceCanvasPos (c+index*4,r) can (getPixel r c))
-                          | otherwise = helper (r-1) 3 (replaceCanvasPos (3+index*4,r) can (getPixel r 3))
+           helper r c can | c>0      = helper r (c-1) (replaceCanvasPos (c+index*4-1+pX,r-1+pY) can (getPixel r c))
+                          | otherwise = helper (r-1) 3 (replaceCanvasPos (3+index*4-1+pX,r-1+pY) can (getPixel r 3))

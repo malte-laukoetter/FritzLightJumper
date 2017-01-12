@@ -16,7 +16,8 @@ initGameState = (genVisAreas 0, 0, ((0, 2), 0))
 drawCanvas :: GameState -> Canvas
 -- PURPOSE
 -- draws the canvas
-drawCanvas (areas, time, player) = drawPlayerToCanvas player $ drawNumber (reverse (digs time)) 0 $ drawAreasCanvas areas time
+drawCanvas (areas, time, player) | time >= 30 = drawPlayerToCanvas player $ drawNumber (reverse (digs (time-30))) 0 (1,1) $ drawAreasCanvas areas time
+                                 | otherwise  = drawCountDown $ time - 30
 
 eventHandler :: GameState -> [Event String] -> GameState
 eventHandler state@(areas, time, player) events = (areas, time, playerEvents events state)
@@ -35,5 +36,5 @@ toFrame events (a, t, p) = (ListFrame (drawCanvas gameState), gameState)
     gameState | not (isPlayerInAreas (areas, time, p)) = eventHandler (areas, time, player) events
               | otherwise                              = initGameState
 main :: IO ()
---main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "127.0.0.1") 1337 dim (Just 33000) False []) toFrame (level, 0)
-main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "134.28.70.172") 1337 dim (Just 33000) True []) toFrame initGameState
+main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "127.0.0.1") 1337 dim (Just 33000) True []) toFrame initGameState
+--main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "134.28.70.172") 1337 dim (Just 33000) True []) toFrame initGameState
