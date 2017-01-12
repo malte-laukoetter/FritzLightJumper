@@ -1,5 +1,6 @@
 module Utilities where
 import Network.MateLight.Simple
+import Data.Char
 import TypeDefs
 
 -- CONTRACT
@@ -85,5 +86,52 @@ drawNumber (x:xs) index (pX, pY) can = drawNumber xs (index+1) (pX, pY) (helper 
      where getPixel r c   | ((numTemplate !! x) !! (r-1)) !! (c-1) = Pixel 255 255 255
                           | otherwise                              = Pixel 0 0 0
            helper 0 _ can = can
-           helper r c can | c>0      = helper r (c-1) (replaceCanvasPos (c+index*4-1+pX,r-1+pY) can (getPixel r c))
+           helper r c can | c>0       = helper r (c-1) (replaceCanvasPos (c+index*4-1+pX,r-1+pY) can (getPixel r c))
+                          | otherwise = helper (r-1) 3 (replaceCanvasPos (3+index*4-1+pX,r-1+pY) can (getPixel r 3))
+
+-- CONTRACT
+drawText :: [Char] -> Int -> Pos -> Canvas -> Canvas
+
+-- PURPOSE
+-- Draws an uppercase english alphabetic text onto the canvas
+
+-- DEFINITION
+-- Again defining a template for each character
+abcTemplate :: [[[Bool]]]
+abcTemplate = [
+    [[False,True,False],[True,False,True],[True,False,True],[True,True,True],[True,False,True]], -- A
+    [[True,True,True],[True,False,True],[True,True,True],[True,False,True],[True,True,True]], -- B
+    [[False,False,True],[False,True,False],[True,False,False],[False,True,False],[False,False,True]], -- C
+    [[True,True,False],[True,False,True],[True,False,True],[True,False,True],[True,True,False]], -- D
+    [[True,True,True],[True,False,False],[True,True,True],[True,False,False],[True,True,True]], -- E
+    [[True,True,True],[True,False,False],[True,True,True],[True,False,False],[True,False,False]], -- F
+    [[False,False,True],[False,True,False],[True,True,True],[True,False,True],[True,True,True]], -- G
+    [[True,False,True],[True,False,True],[True,True,True],[True,False,True],[True,False,True]], -- H
+    [[True,True,True],[False,True,False],[False,True,False],[False,True,False],[True,True,True]], -- I
+    [[True,True,True],[False,False,True],[False,False,True],[False,True,False],[True,False,False]], -- J
+    [[True,False,False],[True,False,True],[True,True,False],[True,False,True],[True,False,False]], -- K
+    [[True,False,False],[True,False,False],[True,False,False],[True,False,False],[True,True,True]], -- L
+    [[True,False,True],[True,True,True],[True,False,True],[True,False,True],[True,False,True]], -- M
+    [[True,False,True],[True,True,True],[True,True,True],[True,True,True],[True,False,True]], -- N
+    [[False,True,False],[True,False,True],[True,False,True],[True,False,True],[False,True,False]], -- O
+    [[True,True,False],[True,False,True],[True,True,False],[True,False,False],[True,False,False]], -- P
+    [[False,True,False],[True,False,True],[True,False,True],[False,True,False],[False,False,True]], -- Q
+    [[True,True,False],[True,False,True],[True,False,True],[True,True,False],[True,False,True]], -- R
+    [[False,True,False],[True,False,False],[False,True,False],[False,False,True],[False,True,False]], -- S
+    [[True,True,True],[False,True,False],[False,True,False],[False,True,False],[False,True,False]], -- T
+    [[True,False,True],[True,False,True],[True,False,True],[True,False,True],[False,True,False]], -- U
+    [[True,False,True],[True,False,True],[True,False,True],[False,True,False],[False,True,False]], -- V
+    [[True,False,True],[True,True,True],[True,False,True],[True,False,True],[True,False,True]], -- W
+    [[True,False,True],[True,False,True],[False,True,False],[True,False,True],[True,False,True]], -- X
+    [[True,False,True],[True,False,True],[False,True,False],[False,True,False],[False,True,False]], -- Y
+    [[True,True,True],[False,False,True],[False,True,False],[True,False,False],[True,True,True]]] -- Z
+
+-- using ord 'A' to convert - 65
+drawText [] _ _ can                = can
+drawText (x:xs) index (pX, pY) can = drawText xs (index+1) (pX, pY) (helper 5 3 can)
+     where charNum        = (ord x) - 65
+           getPixel r c   | ((abcTemplate !! charNum) !! (r-1)) !! (c-1) = Pixel 255 255 255
+                          | otherwise                                    = Pixel 0 0 0
+           helper 0 _ can = can
+           helper r c can | c>0       = helper r (c-1) (replaceCanvasPos (c+index*4-1+pX,r-1+pY) can (getPixel r c))
                           | otherwise = helper (r-1) 3 (replaceCanvasPos (3+index*4-1+pX,r-1+pY) can (getPixel r 3))
