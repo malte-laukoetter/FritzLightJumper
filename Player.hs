@@ -2,7 +2,7 @@ module Player where
 import Network.MateLight.Simple
 import TypeDefs
 import Utilities
-import Area
+import LevelGen
 
 -- CONTRACT
 drawPlayerToCanvas :: Player -> Canvas -> Canvas

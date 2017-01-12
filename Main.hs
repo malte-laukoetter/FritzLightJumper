@@ -8,7 +8,8 @@ import TypeDefs
 import Utilities
 import LevelGen
 import Player
-import Area
+import GameOver
+import GameMenu
 
 -- CONTRACT
 initGameState :: GameState
