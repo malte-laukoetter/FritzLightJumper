@@ -81,5 +81,5 @@ genVisAreas time = [((xPos x, yPos x - size), (xPos x + size, yPos x)) | x <- [c
         yPos x' | ((tan (utiDiv (3*x') 7.23234))-0.4) > 0.2 = 9-size
                 | ((tan (utiDiv (2*x') 3.34344))-0.5) > 0   = 12-size
                 | otherwise                                 = 12
-        bott x' | (sin $ utiDiv x' 10) > 0 || time < 40 || (tan $ utiDiv x' 24) > 0.1  = ((x'*alpha, 11), (x'*alpha+alpha, 12))
+        bott x' | (sin $ utiDiv x' 9) > 0 || time < 40 || (tan $ utiDiv x' 24) > 0.1  = ((x'*alpha, 11), (x'*alpha+alpha, 12))
                 | otherwise                                                            = ((0,0), (0,0))
