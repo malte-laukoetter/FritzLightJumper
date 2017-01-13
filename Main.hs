@@ -18,7 +18,7 @@ initGameState :: GameState
 -- The default gamestate
 
 -- DEFINITION
-initGameState = (genVisAreas 0, 0, ((0, 2), 0))
+initGameState = (genVisAreas 0, 0, ((3, 2), 0))
 
 -- CONTRACT
 drawCanvas :: GameState -> Canvas
