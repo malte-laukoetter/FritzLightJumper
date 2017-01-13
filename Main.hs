@@ -68,5 +68,9 @@ main :: IO ()
 -- Fire that baby!
 
 -- DEFINITION
-main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "127.0.0.1") 1337 dim (Just 33000) True []) toFrame initGameState
---main = Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "134.28.70.172") 1337 dim (Just 33000) True []) toFrame initGameState
+main = do
+  highS <- loadHighscore -- This is from type Int now. You can use it for the game over for example
+  Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "127.0.0.1") 1337 dim (Just 33000) True []) toFrame initGameState
+--main = do
+  --highS <- loadHighscore -- This is from type Int now. You can use it for the game over for example
+  --Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "134.28.70.172") 1337 dim (Just 33000) True []) toFrame initGameState

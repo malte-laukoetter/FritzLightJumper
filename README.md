@@ -14,5 +14,4 @@ Therefore we defined the following specifications for the project:
 - Basic physics (Jumping, Collision)
 - Player controls (Handling the player inputs)
 - Showing current score during the game
-- Using monadic structures
 
