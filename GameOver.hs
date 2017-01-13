@@ -1,17 +1,22 @@
 module GameOver where
 import Network.MateLight.Simple
+import System.IO
 import TypeDefs
 import Utilities
 
 -- CONTRACT
-loadHighscore :: IO() -> Int
+-- Note you can't go to Int only
+loadHighscore :: IO Int
 
 -- PURPOSE
 -- Loads the current Highscore from the save document
 
 -- DEFINITION
-loadHighscore = undefined
-
+loadHighscore = do
+    s <- readFile "highscore.db"
+    let [l] = lines s
+    let hs  = read (init l)
+    return hs
 
 -- CONTRACT
 saveHighscore :: Int -> IO()
@@ -20,7 +25,7 @@ saveHighscore :: Int -> IO()
 -- Saves the Highscore to the save document
 
 -- DEFINITION
-saveHighscore = undefined
+saveHighscore time = writeFile "highscore.db" $ unwords [show time]
 
 -- CONTRACT
 drawGameOver :: Time -> Canvas
