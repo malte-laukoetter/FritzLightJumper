@@ -18,7 +18,7 @@ initGameState :: GameState
 -- The default gamestate
 
 -- DEFINITION
-initGameState = (genVisAreas 0, 0, ((3, 2), 0))
+initGameState = ([], 0, ((3, 2), 0))
 
 -- CONTRACT
 drawCanvas :: GameState -> Canvas
@@ -57,7 +57,7 @@ toFrame :: [Event String] -> GameState -> (ListFrame, GameState)
 toFrame events (a, t, p) = (ListFrame (drawCanvas gameState), gameState)
   where
     time      = t+1
-    areas     = genVisAreas time
+    areas     = genVisAreas time 100 -- Add seed number variable here!
     player    = playerTick (areas, time, p)
     gameState | not (isPlayerInAreas (areas, time, p)) = eventHandler (areas, time, player) events
               | otherwise                              = initGameState -- Game over | You gotta work with the time variable and states to prevent other events from being triggered
