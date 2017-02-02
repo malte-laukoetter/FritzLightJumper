@@ -58,10 +58,11 @@ increaseTime (a,t,p, b,c) = (a, t + 1, p, b,c)
 -- CONTRACT
 toFrame :: [Event String] -> GameState -> (ListFrame, GameState)
 
--- PURPOSE
+-- PURPOSEs
 -- Converts gamestate to the needed ListFrame object and is the main function that executes all other in some form
 
 -- DEFINITION
+toFrame events state@(a, t, p, [(0,0)], c) = GameOver.drawGameOver events state
 toFrame events state@(a, t, p, b, True) = Menu.eventTest events state
 toFrame events (a, t, p, b,c) = (ListFrame (drawCanvas gameState), gameState)
   where
@@ -69,7 +70,8 @@ toFrame events (a, t, p, b,c) = (ListFrame (drawCanvas gameState), gameState)
     areas     = genVisAreas time 100 -- Add seed number variable here!
     player    = playerTick (areas, time, p, b, c)
     gameState | not (isPlayerInAreas (areas, time, p, b, c)) = eventHandler (areas, time, player, b, c) events
-              | otherwise                              = initGameState -- Game over | You gotta work with the time variable and states to prevent other events from being triggered
+              | otherwise                              = (areas, time, p, [(0,0)], c)
+                --initGameState -- Game over | You gotta work with the time variable and states to prevent other events from being triggered
 -- CONTRACT
 main :: IO ()
 
@@ -77,9 +79,9 @@ main :: IO ()
 -- Fire that baby!
 
 -- DEFINITION
-main = do
-  highS <- loadHighscore -- This is from type Int now. You can use it for the game over for example
-  Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "127.0.0.1") 1337 dim (Just 33000) True []) toFrame initGameState
 --main = do
   --highS <- loadHighscore -- This is from type Int now. You can use it for the game over for example
-  --Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "134.28.70.172") 1337 dim (Just 33000) True []) toFrame initGameState
+  --Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "127.0.0.1") 1337 dim (Just 33000) True []) toFrame initGameState
+main = do
+  highS <- loadHighscore -- This is from type Int now. You can use it for the game over for example
+  Sock.withSocketsDo $ runMate (Config (fromJust $ parseAddress "134.28.70.172") 1337 dim (Just 33000) True []) toFrame initGameState
